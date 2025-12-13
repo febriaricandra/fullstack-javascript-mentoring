@@ -1,0 +1,35 @@
+// block node_modules
+node_modules/
+// block log files
+*.log
+// block environment files
+.env
+
+# block build output
+dist/
+build/
+// block OS generated files
+.DS_Store
+Thumbs.db
+# block IDE specific files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# block dependency directories
+jspm_packages/
+
+# block coverage directory
+coverage/
+# block temporary files
+tmp/
+temp/
+# block yarn files
+yarn-error.log
+.yarn-integrity
+
+# block parcel-bundler cache
+.cache/

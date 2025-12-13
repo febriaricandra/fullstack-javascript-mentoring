@@ -1,0 +1,27 @@
+{
+  "name": "fullstack-mentoring",
+  "version": "1.0.0",
+  "description": "belajar fullstack javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/febriaricandra/fullstack-javascript-mentoring.git"
+  },
+  "keywords": [
+    "fullstack",
+    "belajar"
+  ],
+  "author": "febriaricandra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/febriaricandra/fullstack-javascript-mentoring/issues"
+  },
+  "homepage": "https://github.com/febriaricandra/fullstack-javascript-mentoring#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
