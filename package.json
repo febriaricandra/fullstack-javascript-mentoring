@@ -1,6 +1,7 @@
 {
   "name": "fullstack-mentoring",
   "version": "1.0.0",
+  "type": "module",
   "description": "belajar fullstack javascript",
   "main": "index.js",
   "scripts": {

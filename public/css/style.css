@@ -1,0 +1,17 @@
+/* Custom styles */
+.prose {
+    line-height: 1.75;
+}
+
+.prose p {
+    margin-bottom: 1.25em;
+}
+
+/* Loading animation */
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
