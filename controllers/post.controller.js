@@ -104,6 +104,38 @@ export const createPost = async (req, res) => {
             });
         }
         
+        // Validasi category_id dengan memanggil category service (Golang microservice)
+        if (category_id) {
+            try {
+                const categoryServiceUrl = process.env.CATEGORY_SERVICE_URL || 'http://localhost:8080';
+                const categoryResponse = await fetch(`${categoryServiceUrl}/api/categories`);
+                
+                if (!categoryResponse.ok) {
+                    return res.status(503).json({
+                        success: false,
+                        message: 'Category service unavailable'
+                    });
+                }
+                
+                const categoryData = await categoryResponse.json();
+                const validCategory = categoryData.data.find(cat => cat.id === parseInt(category_id));
+                
+                if (!validCategory) {
+                    return res.status(400).json({
+                        success: false,
+                        message: 'Invalid category_id'
+                    });
+                }
+            } catch (error) {
+                console.error('Error validating category:', error);
+                return res.status(503).json({
+                    success: false,
+                    message: 'Failed to validate category with category service',
+                    error: error.message
+                });
+            }
+        }
+        
         const postData = {
             title,
             slug,
@@ -265,4 +297,29 @@ export const getCommentPosts = async (req, res) => {
             error: error.message
         });
     }
-}
+};
+
+// Proxy endpoint untuk mengambil categories dari Golang service
+export const getCategories = async (req, res) => {
+    try {
+        const categoryServiceUrl = process.env.CATEGORY_SERVICE_URL || 'http://localhost:8080';
+        const response = await fetch(`${categoryServiceUrl}/api/categories`);
+        
+        if (!response.ok) {
+            return res.status(503).json({
+                success: false,
+                message: 'Category service unavailable'
+            });
+        }
+        
+        const data = await response.json();
+        res.status(200).json(data);
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+        res.status(503).json({
+            success: false,
+            message: 'Failed to connect to category service',
+            error: error.message
+        });
+    }
+};

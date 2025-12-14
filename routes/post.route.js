@@ -11,4 +11,7 @@ router.delete('/posts/:id', PostController.deletePost);
 
 router.get('/posts/:id/comments', PostController.getCommentPosts);
 
+// Proxy endpoint for categories from Golang service
+router.get('/categories', PostController.getCategories);
+
 export default router;

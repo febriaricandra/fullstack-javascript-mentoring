@@ -166,7 +166,12 @@ const PostDetailPage = async (id) => {
 };
 
 // Create post page
-const CreatePostPage = () => {
+const CreatePostPage = async () => {
+    const categories = [];
+    const result = await api.getCategories();
+    if (result.success) {
+        categories.push(...result.data);
+    }
     return `
         <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
             <h1 class="text-3xl font-bold mb-6">Create New Post</h1>
@@ -211,8 +216,12 @@ const CreatePostPage = () => {
                 
                 <div>
                     <label class="block text-sm font-medium mb-2">Category ID</label>
-                    <input type="number" name="category_id"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                    <select name="category_id" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+                        <option value="">-- Select Category --</option>
+                        ${categories.map(cat => `
+                            <option value="${cat.id}">${cat.name}</option>
+                        `).join('')}
+                    </select>
                 </div>
                 
                 <div>
@@ -256,7 +265,7 @@ export const router = async (pathname) => {
             break;
 
         case 'create':
-            html = CreatePostPage();
+            html = await CreatePostPage();
             break;
 
         case 'posts':

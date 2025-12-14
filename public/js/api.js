@@ -51,5 +51,11 @@ export const api = {
         const response = await fetch(`${API_BASE}/posts/${postId}/comments`);
         if (!response.ok) throw new Error('Failed to fetch comments');
         return response.json();
+    },
+
+    async getCategories() {
+        const response = await fetch(`${API_BASE}/categories`);
+        if (!response.ok) throw new Error('Failed to fetch categories');
+        return response.json();
     }
 };
