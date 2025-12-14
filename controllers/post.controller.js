@@ -323,3 +323,34 @@ export const getCategories = async (req, res) => {
         });
     }
 };
+
+
+export const addCommentToPost = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const commentData = req.body;
+
+        // Validasi input
+        if (!commentData.user_id || !commentData.content) {
+            return res.status(400).json({
+                success: false,
+                message: 'user_id and content are required'
+            });
+        }
+
+        const commentId = await PostModel.addCommentToPost(id, commentData);
+
+        res.status(201).json({
+            success: true,
+            message: 'Comment added successfully, pending approval',
+            data: { id: commentId }
+        });
+    } catch (error) {
+        console.error('Error adding comment to post:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to add comment',
+            error: error.message
+        });
+    }
+}

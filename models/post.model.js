@@ -178,3 +178,13 @@ export const getCommentPosts = async (postId) => {
     `, [postId]);
     return rows;
 };
+
+export const addCommentToPost = async (postId, commentData) => {
+    const { user_id, content } = commentData;
+    const [result] = await pool.query(
+        `INSERT INTO comments (post_id, user_id, content, is_approved, created_at) 
+         VALUES (?, ?, ?, 0, ?)`,
+        [postId, user_id, content, new Date()]
+    );
+    return result.insertId;
+};

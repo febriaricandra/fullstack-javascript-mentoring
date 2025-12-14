@@ -10,6 +10,7 @@ router.put('/posts/:id', PostController.updatePost);
 router.delete('/posts/:id', PostController.deletePost);
 
 router.get('/posts/:id/comments', PostController.getCommentPosts);
+router.post('/posts/:id/comments', PostController.addCommentToPost);
 
 // Proxy endpoint for categories from Golang service
 router.get('/categories', PostController.getCategories);
